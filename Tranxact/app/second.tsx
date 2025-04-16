@@ -4,7 +4,7 @@ import Button from '../components/Button';
 import React from 'react';
 import { router } from "expo-router";
 
-export default function Index() {
+export default function SeocndLoginPage() {
   return (
     <LinearGradient
       colors={['#000000', '#000000', '#EC368D', '#00BD9D', '#1A535C']}
@@ -16,26 +16,18 @@ export default function Index() {
       <View className="flex-1 items-center justify-center relative">
         <View className="items-center mb-6">
           <Image
-            source={require('../assets/images/tranxact.png')}
-            className="h-20 w-50 mb-4"
+            source={require('../assets/images/icon.png')}
+            className="h-[200px] w-[400px] mb-4"
             resizeMode="contain"
           />
-          <Text className="text-white text-2xl mb-1">Crypto, Simplified.</Text>
-          <Text className="text-white text-2xl">Power, Amplified.</Text>
         </View>
 
         <View className="absolute bottom-16 w-full px-8">
-           <Button
-            title="Get Started"
-            variant="primary"
-            onPress={() => console.log('Get Started pressed')}
-            className="mb-4"
-          />
-          
           <Button
-            title="Sign In"
-            variant="secondary"
-            onPress={() => router.push('/second')}
+            title="Login"
+            variant="primary"
+            onPress={() => router.back()}
+            className="mb-20"
           />
         </View>
       </View>
