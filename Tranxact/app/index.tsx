@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import "./global.css"
 
 export default function Index() {
   return (
@@ -9,7 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to editgood boy nice  one it is updating </Text>
+      <Text>Edit app/index.tsx to edit  </Text>
     </View>
   );
 }
