@@ -8,6 +8,11 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/icon.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#000000"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.youngmentor123.Tranxact",
@@ -33,8 +38,8 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/icon.png",
-          "imageWidth": 200,
-          "resizeMode": "cover ",
+          "imageWidth": 100,
+          "resizeMode": "cover",
           "backgroundColor": "#000000"
         }
       ]
