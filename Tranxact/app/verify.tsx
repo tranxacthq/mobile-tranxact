@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, TextInput, Image, TouchableWithoutFeedback, Keyboard, Clipboard } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import Button from '@/components/Button';
 
@@ -19,9 +19,7 @@ export default function VerificationScreen() {
     }, [timeLeft]);
 
     const handleOtpChange = (value: string, index: number) => {
-        // Handle paste of full OTP code
         if (value.length > 1) {
-            // This might be a paste operation
             const pastedValue = value.slice(0, 6).split('');
             const newOtp = [...otp];
 
@@ -30,8 +28,6 @@ export default function VerificationScreen() {
             }
 
             setOtp(newOtp);
-
-            // Focus the last filled input or the next empty one
             const lastIndex = Math.min(pastedValue.length, 5);
             if (inputRefs.current[lastIndex]) {
                 inputRefs.current[lastIndex]?.focus();
@@ -44,7 +40,6 @@ export default function VerificationScreen() {
         setOtp(newOtp);
 
         if (value && index < 5) {
-            // Move to next input when a digit is entered
             if (inputRefs.current[index + 1]) {
                 inputRefs.current[index + 1]?.focus();
             }
@@ -52,11 +47,9 @@ export default function VerificationScreen() {
     };
 
     const handleKeyPress = (e: any, index: number) => {
-        // Handle backspace to go to previous input
         if (e.nativeEvent.key === 'Backspace') {
             const newOtp = [...otp];
 
-            // If current field is empty and we're not at the first input, go to previous input
             if (otp[index] === '' && index > 0) {
                 newOtp[index - 1] = '';
                 setOtp(newOtp);
@@ -64,40 +57,13 @@ export default function VerificationScreen() {
                     inputRefs.current[index - 1]?.focus();
                 }
             } else {
-                // Clear current field
                 newOtp[index] = '';
                 setOtp(newOtp);
             }
         }
     };
 
-    const handlePaste = async () => {
-        try {
-            const clipboardContent = await Clipboard.getString();
-            if (clipboardContent && /^\d+$/.test(clipboardContent)) {
-                // Only handle numeric content
-                const pastedValue = clipboardContent.slice(0, 6).split('');
-                const newOtp = [...otp];
-
-                for (let i = 0; i < 6; i++) {
-                    newOtp[i] = pastedValue[i] || '';
-                }
-
-                setOtp(newOtp);
-
-                // Focus the last filled input
-                const lastIndex = Math.min(pastedValue.length - 1, 5);
-                if (inputRefs.current[lastIndex]) {
-                    inputRefs.current[lastIndex]?.focus();
-                }
-            }
-        } catch (error) {
-            console.log('Failed to paste text: ', error);
-        }
-    };
-
     const handleContainerPress = () => {
-        // Focus first empty input or the first input
         for (let i = 0; i < 6; i++) {
             if (!otp[i]) {
                 inputRefs.current[i]?.focus();
@@ -110,6 +76,7 @@ export default function VerificationScreen() {
     const handleVerify = () => {
         const otpValue = otp.join('');
         console.log('Verifying OTP:', otpValue, 'for email:', email);
+        router.push(`/completesignup?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otpValue)}`);
     };
 
     const handleResend = () => {
@@ -122,41 +89,25 @@ export default function VerificationScreen() {
     return (
         <SafeAreaView className="flex-1 bg-[#07070C]">
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <View className="px-6 flex-1">
-                    <TouchableOpacity className="mt-4" onPress={() => router.back()}>
-                        <Text className="text-white text-3xl">←</Text>
-                    </TouchableOpacity>
-
-                    <View className="items-center mt-8">
-                        <View className="h-[50px] w-[400px] mb-4">
-                            <Image
-                                source={require('../assets/images/icon.png')}
-                                className="h-[50px] w-[400px] mb-4"
-                                resizeMode="contain"
-                            />
-                        </View>
-                        <Text className="text-white text-3xl font-semibold mb-8">Verify your email</Text>
-
-                        <View className="w-full flex-row mb-8">
-                            <View className="h-1 flex-1 bg-teal-400 rounded-full" />
-                            <View className="h-1 flex-1 bg-teal-400 rounded-full ml-1" />
+                <View className="px-6 flex-1 justify-between">
+                    <View>
+                        <View className="flex-row items-center mt-6">
+                            <TouchableOpacity onPress={() => router.back()} className="mr-4">
+                                <Text className="text-white text-2xl">←</Text>
+                            </TouchableOpacity>
+                            <Text className="text-white text-3xl font-semibold">Verify your email</Text>
                         </View>
 
-                        <Text className="text-gray-400 text-lg text-center">
-                            A 6 digit OTP code has been sent to
-                        </Text>
-                        <Text className="text-teal-400 text-lg mb-2">{displayEmail}</Text>
-                        <Text className="text-gray-400 text-lg mb-8">enter the code to continue.</Text>
+                        <View className="mt-16">
+                            <Text className="text-gray-400 text-lg">
+                                A 6 digit OTP code has been sent to
+                            </Text>
+                            <Text className="text-teal-400 text-lg">{displayEmail}</Text>
+                            <Text className="text-gray-400 text-lg">enter the code to continue.</Text>
+                        </View>
 
-
-                        <View className="mb-8">
-                            <View className="flex-row justify-between items-center mb-4">
-                                <Text className="text-gray-400 text-lg">Enter OTP</Text>
-                                <TouchableOpacity onPress={handlePaste}>
-                                    <Text className="text-teal-400 text-base">Paste Code</Text>
-                                </TouchableOpacity>
-                            </View>
-
+                        <View className="mt-12">
+                            <Text className="text-gray-400 text-lg mb-4">Enter OTP</Text>
                             <TouchableOpacity
                                 ref={containerRef}
                                 onPress={handleContainerPress}
@@ -164,12 +115,12 @@ export default function VerificationScreen() {
                                 className="flex-row justify-between w-full"
                             >
                                 {otp.map((digit, index) => (
-                                    <View key={index} className="w-14 h-20 bg-[#101115] rounded-lg justify-center items-center mx-1">
+                                    <View key={index} className="w-14 h-16 bg-[#101115] rounded-lg justify-center items-center">
                                         <TextInput
                                             ref={ref => {
                                                 inputRefs.current[index] = ref;
                                             }}
-                                            className="text-white text-2xl font-bold text-center w-full h-full"
+                                            className="text-white text-3xl font-bold text-center w-full h-full"
                                             keyboardType="number-pad"
                                             maxLength={1}
                                             value={digit}
@@ -182,22 +133,20 @@ export default function VerificationScreen() {
                             </TouchableOpacity>
                         </View>
 
-                        <View className="flex-row justify-center items-center">
+                        <View className="items-center mt-12">
                             {timeLeft > 0 ? (
-                                <>
-                                    <Text className="text-gray-400 text-base">Resend code in </Text>
-                                    <Text className="text-teal-400 text-base">{timeLeft} secs</Text>
-                                </>
+                                <Text className="text-gray-400 text-base">
+                                    Resend code in <Text className="text-teal-400">{timeLeft} secs</Text>
+                                </Text>
                             ) : (
-                                <TouchableOpacity onPress={handleResend} className="flex-row">
-                                    <Text className="text-gray-400 text-base">Tap to </Text>
+                                <TouchableOpacity onPress={handleResend}>
                                     <Text className="text-teal-400 text-base">Resend</Text>
                                 </TouchableOpacity>
                             )}
                         </View>
                     </View>
 
-                    <View className="flex-1 justify-end mb-8">
+                    <View className="mb-8">
                         <Button
                             title="Verify"
                             variant="primary"
@@ -205,8 +154,7 @@ export default function VerificationScreen() {
                             className="mb-10 bg-white rounded-xl py-4 items-center w-[100%] "
                             textClassName="text-[16px] font-poppins"
                         />
-
-                        <View className="flex-row justify-center mt-4">
+                        <View className="flex-row justify-center mt-8">
                             <Text className="text-gray-400">Already have an account? </Text>
                             <TouchableOpacity onPress={() => router.push('/login')}>
                                 <Text className="text-teal-400">Login</Text>

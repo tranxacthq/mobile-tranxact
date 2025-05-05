@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.young_mentor123.Tranxact"
+      "package": "com.youngmentor123.Tranxact"
     },
     "web": {
       "bundler": "metro",
@@ -42,7 +42,8 @@
           "resizeMode": "cover",
           "backgroundColor": "#000000"
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
@@ -52,7 +53,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "277da4b6-5a7d-4767-a78d-0b210065cd69"
+        "projectId": "6a71c00f-95ba-466c-a5db-cac977f61ae4"
       }
     },
     "owner": "young_mentor123"
