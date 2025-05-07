@@ -52,7 +52,7 @@ const Setup2FA = () => {
 
     const handleSetup = () => {
         const otpValue = otp.join('');
-        const mockCode = '123456'; // Replace with your actual logic for verification
+        const mockCode = '123456';
         if (otpValue === mockCode) {
             Alert.alert('Success', '2FA setup complete!');
         } else {

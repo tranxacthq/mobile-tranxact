@@ -1,80 +1,91 @@
-// ios 32386291886-9pdao96bus7dvuuuqav4cag1rs5lplo2.apps.googleusercontent.com
-// android 32386291886-mqtddk4hcbn54megj77gpvvvc90dgkpp.apps.googleusercontent.com
-
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import {
+    View, Text, TextInput, TouchableOpacity, SafeAreaView, KeyboardAvoidingView,
+    Platform, Image, TouchableWithoutFeedback, Keyboard
+} from 'react-native';
 import { router } from 'expo-router';
 import Button from '@/components/Button';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as AppleAuthentication from 'expo-apple-authentication';
 
 WebBrowser.maybeCompleteAuthSession();
+
 export default function SignupScreen() {
     const [email, setEmail] = useState('');
     const [userInfo, setUserInfo] = useState(null);
+
     const [request, response, promptAsync] = Google.useAuthRequest({
-        iosClientId: '32386291886-9pdao96bus7dvuuuqav4cag1rs5lplo2.apps.googleusercontent.com',
+        iosClientId: '32386291886-at8ndkpkjr0jh8a7sbaj4fdhdefkueng.apps.googleusercontent.com',
         androidClientId: '32386291886-mqtddk4hcbn54megj77gpvvvc90dgkpp.apps.googleusercontent.com',
-    })
+        webClientId: "32386291886-uh0htfhiqnbhf7lnlgvhc94tp4etuabg.apps.googleusercontent.com"
+    });
 
     const getUserInfo = async (token: string) => {
-        if (!token) return;
         try {
-            const response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+            const res = await fetch('https://openidconnect.googleapis.com/v1/userinfo', {
+                headers: { Authorization: `Bearer ${token}` },
             });
-            const data = await response.json();
+            const data = await res.json();
+
+            if (data.error) {
+                console.error('Google API Error:', data.error);
+                return;
+            }
+
             await AsyncStorage.setItem('user', JSON.stringify(data));
             setUserInfo(data);
+            console.log('User data:', data);
         } catch (error) {
             console.error('Error fetching user info:', error);
         }
     };
 
-    async function handleSignUpWithGoogle() {
-        const user = await AsyncStorage.getItem('user');
-        if (!user) {
-            if (response?.type === 'success') {
-                await getUserInfo(response?.authentication?.accessToken ?? '')
+    useEffect(() => {
+        if (response?.type === 'success' && response.authentication?.accessToken) {
+            console.log('Access Token:', response.authentication.accessToken);
+            console.log('User Info:', response.authentication);
+            getUserInfo(response.authentication.accessToken);
+        }
+    }, [response]);
+
+    const handleGoogleSignIn = async () => {
+        await promptAsync();
+    };
+    const handleAppleSignIn = async () => {
+        try {
+            const credential = await AppleAuthentication.signInAsync({
+                requestedScopes: [
+                    AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                    AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                ],
+            });
+
+            console.log('Apple Credential:', credential);
+        } catch (error: any) {
+            if (error.code === 'ERR_CANCELED') {
+                console.log('User cancelled Apple Sign-In');
             } else {
-                if (user) {
-                    setUserInfo(JSON.parse(user));
-                }
-            }
-            if (response?.type === 'success') {
-                const authentication = JSON.parse(response.params.authentication || '{}');
-                const userInfoResponse = await fetch('https://www.googleapis.com/userinfo/v2/me', {
-                    headers: { Authorization: `Bearer ${authentication.access_token}` },
-                });
-                const userInfo = await userInfoResponse.json();
-                setUserInfo(userInfo);
-                await AsyncStorage.setItem('user', JSON.stringify(userInfo));
+                console.error('Apple Sign-In Error', error);
             }
         }
-
     };
-    useEffect(() => {
-        handleSignUpWithGoogle()
-    }, [response])
+
     const handleContinue = () => {
         if (!email.trim()) {
             alert("Please enter your email address");
             return;
         }
-        router.push({
-            pathname: '/verify',
-            params: { email: email }
-        });
+        router.push({ pathname: '/verify', params: { email } });
     };
-
+    const user = AsyncStorage.getItem('user');
+    console.log('User from AsyncStorage:', user);
     return (
         <SafeAreaView className="flex-1 bg-[#07070C]">
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <KeyboardAvoidingView
-                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                     className="flex-1"
                 >
                     <View className="px-6 flex-1 justify-between">
@@ -107,10 +118,9 @@ export default function SignupScreen() {
                                 title="Continue"
                                 variant="primary"
                                 onPress={handleContinue}
-                                className="mb-10 mt-10 bg-white rounded-xl py-4 items-center w-[100%] "
+                                className="mb-10 mt-10 bg-white rounded-xl py-4 items-center w-[100%]"
                                 textClassName="text-[16px] font-poppins"
                             />
-
                         </View>
 
                         <View className="mt-8 mb-8">
@@ -121,7 +131,10 @@ export default function SignupScreen() {
                             </View>
 
                             <View className="flex-row justify-center items-center gap-8">
-                                <TouchableOpacity className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center">
+                                <TouchableOpacity
+                                    className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center"
+                                    onPress={handleAppleSignIn}
+                                >
                                     <Image
                                         source={require('../assets/images/apple.png')}
                                         className="w-14 h-14"
@@ -130,7 +143,7 @@ export default function SignupScreen() {
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center"
-                                    onPress={() => promptAsync()}
+                                    onPress={handleGoogleSignIn}
                                 >
                                     <Image
                                         source={require('../assets/images/google.png')}

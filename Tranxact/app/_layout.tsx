@@ -2,6 +2,10 @@ import { SplashScreen, Stack } from "expo-router";
 import '../global.css';
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import { ApiProvider } from "@/context/apiContext";
+import { AuthProvider } from "@/context/authContext";
+import { QueryProvider } from "@/context/qeuryContext";
+
 
 SplashScreen.preventAutoHideAsync()
 export default function RootLayout() {
@@ -19,7 +23,6 @@ export default function RootLayout() {
     'Termina-Regular': require('../assets/fonts/TerminaTest-Regular.ttf'),
     'Termina-Medium': require('../assets/fonts/TerminaTest-Medium.ttf'),
     'Termina-Bold': require('../assets/fonts/TerminaTest-Bold.ttf'),
-
   });
 
   useEffect(() => {
@@ -40,14 +43,20 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack initialRouteName="index" >
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-      <Stack.Screen name="signup" options={{ headerShown: false }} />
-      <Stack.Screen name="verify" options={{ headerShown: false }} />
-      <Stack.Screen name="login" options={{ headerShown: false }} />
-      <Stack.Screen name="completesignup" options={{ headerShown: false }} />
-      <Stack.Screen name="2fa" options={{ headerShown: false }} />
-    </Stack>
+    <QueryProvider>
+      <ApiProvider>
+        <AuthProvider>
+          <Stack initialRouteName="index">
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            <Stack.Screen name="signup" options={{ headerShown: false }} />
+            <Stack.Screen name="verify" options={{ headerShown: false }} />
+            <Stack.Screen name="login" options={{ headerShown: false }} />
+            <Stack.Screen name="completesignup" options={{ headerShown: false }} />
+            <Stack.Screen name="2fa" options={{ headerShown: false }} />
+          </Stack>
+        </AuthProvider>
+      </ApiProvider>
+    </QueryProvider>
   );
 }

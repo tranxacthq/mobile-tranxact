@@ -16,8 +16,8 @@ const authStorageKey = "auth-key";
 export const AuthContext = createContext<AuthState>({
     isLoggedIn: false,
     isReady: false,
-    logIn: () => {},
-    logOut: () => {},
+    logIn: () => { },
+    logOut: () => { },
 });
 
 export function AuthProvider({ children }: PropsWithChildren) {
