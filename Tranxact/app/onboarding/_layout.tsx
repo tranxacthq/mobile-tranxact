@@ -17,6 +17,7 @@ export default function RootLayout() {
             <Stack.Screen name="login" options={{ headerShown: false }} />
             <Stack.Screen name="completesignup" options={{ headerShown: false }} />
             <Stack.Screen name="2fa" options={{ headerShown: false }} />
+            <Stack.Screen name="verify2fa" options={{ headerShown: false }} />
         </Stack>
     );
 }

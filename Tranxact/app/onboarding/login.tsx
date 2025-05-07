@@ -1,22 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { router } from 'expo-router';
 import Button from '@/components/Button';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as AppleAuthentication from 'expo-apple-authentication';
 
+WebBrowser.maybeCompleteAuthSession();
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [userInfo, setUserInfo] = useState(null);
+
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    iosClientId: '32386291886-at8ndkpkjr0jh8a7sbaj4fdhdefkueng.apps.googleusercontent.com',
+    androidClientId: '32386291886-mqtddk4hcbn54megj77gpvvvc90dgkpp.apps.googleusercontent.com',
+    webClientId: "32386291886-uh0htfhiqnbhf7lnlgvhc94tp4etuabg.apps.googleusercontent.com"
+  });
+
+  const getUserInfo = async (token: string) => {
+    try {
+      const res = await fetch('https://openidconnect.googleapis.com/v1/userinfo', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+
+      if (data.error) {
+        console.error('Google API Error:', data.error);
+        return;
+      }
+
+      await AsyncStorage.setItem('user', JSON.stringify(data));
+      setUserInfo(data);
+      console.log('User data:', data);
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (response?.type === 'success' && response.authentication?.accessToken) {
+      console.log('Access Token:', response.authentication.accessToken);
+      console.log('User Info:', response.authentication);
+      getUserInfo(response.authentication.accessToken);
+    }
+  }, [response]);
+
+  const handleGoogleSignIn = async () => {
+    await promptAsync();
+  };
+
   const handleContinue = () => {
-    if (!email.trim()) {
-      alert("Please enter your email address");
-      return;
-    }
-    if (!password.trim()) {
-      alert("Please enter your password");
-      return;
-    }
-    router.push('/onboarding/verify');
+    // if (!email.trim()) {
+    //   alert("Please enter your email address");
+    //   return;
+    // }
+    // if (!password.trim()) {
+    //   alert("Please enter your password");
+    //   return;
+    // }
+    router.push('/onboarding/2fa');
   };
 
   return (

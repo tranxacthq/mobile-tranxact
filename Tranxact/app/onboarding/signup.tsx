@@ -53,6 +53,7 @@ export default function SignupScreen() {
     const handleGoogleSignIn = async () => {
         await promptAsync();
     };
+
     const handleAppleSignIn = async () => {
         try {
             const credential = await AppleAuthentication.signInAsync({

@@ -9,7 +9,7 @@ type ButtonProps = {
     className?: string;
     textClassName?: string;
     textColor?: string;
-    textSize?: 'base' | 'lg' | 'xl'; // Or use a number for font size
+    textSize?: 'base' | 'lg' | 'xl';
     disabled?: boolean;
 };
 
@@ -45,7 +45,7 @@ const Button: React.FC<ButtonProps> = ({
         buttonClass += " py-5 px-8";
         textClass += " text-xl";
     } else {
-        textClass += " text-lg"; // Default size
+        textClass += " text-lg";
     }
 
     if (textSize === 'base') {
