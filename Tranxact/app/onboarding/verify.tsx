@@ -76,7 +76,7 @@ export default function VerificationScreen() {
     const handleVerify = () => {
         const otpValue = otp.join('');
         console.log('Verifying OTP:', otpValue, 'for email:', email);
-        router.push(`/completesignup?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otpValue)}`);
+        router.push(`/onboarding/completesignup?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otpValue)}`);
     };
 
     const handleResend = () => {
@@ -156,7 +156,7 @@ export default function VerificationScreen() {
                         />
                         <View className="flex-row justify-center mt-8">
                             <Text className="text-gray-400">Already have an account? </Text>
-                            <TouchableOpacity onPress={() => router.push('/login')}>
+                            <TouchableOpacity onPress={() => router.push('/onboarding/login')}>
                                 <Text className="text-teal-400">Login</Text>
                             </TouchableOpacity>
                         </View>

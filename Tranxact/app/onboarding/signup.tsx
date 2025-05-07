@@ -77,7 +77,7 @@ export default function SignupScreen() {
             alert("Please enter your email address");
             return;
         }
-        router.push({ pathname: '/verify', params: { email } });
+        router.push({ pathname: '/onboarding/verify', params: { email } });
     };
     const user = AsyncStorage.getItem('user');
     console.log('User from AsyncStorage:', user);
@@ -92,7 +92,7 @@ export default function SignupScreen() {
                         <View className="items-center mt-12 gap-4">
                             <View className="items-center justify-center mb-4">
                                 <Image
-                                    source={require('../assets/images/icon.png')}
+                                    source={require('../../assets/images/icon.png')}
                                     className="h-24 w-30"
                                     resizeMode="contain"
                                 />
@@ -136,7 +136,7 @@ export default function SignupScreen() {
                                     onPress={handleAppleSignIn}
                                 >
                                     <Image
-                                        source={require('../assets/images/apple.png')}
+                                        source={require('../../assets/images/apple.png')}
                                         className="w-14 h-14"
                                         resizeMode="contain"
                                     />
@@ -146,7 +146,7 @@ export default function SignupScreen() {
                                     onPress={handleGoogleSignIn}
                                 >
                                     <Image
-                                        source={require('../assets/images/google.png')}
+                                        source={require('../../assets/images/google.png')}
                                         className="w-8 h-8"
                                         resizeMode="contain"
                                     />
@@ -157,7 +157,7 @@ export default function SignupScreen() {
                         <View className="mb-8">
                             <View className="flex-row justify-center">
                                 <Text className="text-gray-400">Already have an account? </Text>
-                                <TouchableOpacity onPress={() => router.push('/login')}>
+                                <TouchableOpacity onPress={() => router.push('/onboarding/login')}>
                                     <Text className="text-teal-400 font-medium">Login</Text>
                                 </TouchableOpacity>
                             </View>

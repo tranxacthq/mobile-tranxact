@@ -16,7 +16,7 @@ export default function Login() {
       alert("Please enter your password");
       return;
     }
-    router.push('/verify');
+    router.push('/onboarding/verify');
   };
 
   return (
@@ -30,7 +30,7 @@ export default function Login() {
             <View className="items-center mt-12 gap-4">
               <View className="items-center justify-center mb-4">
                 <Image
-                  source={require('../assets/images/icon.png')}
+                  source={require('../../assets/images/icon.png')}
                   className="h-24 w-30"
                   resizeMode="contain"
                 />
@@ -83,14 +83,14 @@ export default function Login() {
               <View className="flex-row justify-center items-center gap-8">
                 <TouchableOpacity className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center">
                   <Image
-                    source={require('../assets/images/apple.png')}
+                    source={require('../../assets/images/apple.png')}
                     className="w-14 h-14"
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
                 <TouchableOpacity className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center">
                   <Image
-                    source={require('../assets/images/google.png')}
+                    source={require('../../assets/images/google.png')}
                     className="w-8 h-8"
                     resizeMode="contain"
                   />
@@ -101,7 +101,7 @@ export default function Login() {
             <View className="mb-8">
               <View className="flex-row justify-center">
                 <Text className="text-gray-400">Don't have an account? </Text>
-                <TouchableOpacity onPress={() => router.push('/signup')}>
+                <TouchableOpacity onPress={() => router.push('/onboarding/signup')}>
                   <Text className="text-teal-400 font-medium">Sign up</Text>
                 </TouchableOpacity>
               </View>

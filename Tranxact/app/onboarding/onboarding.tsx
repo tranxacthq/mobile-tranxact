@@ -14,19 +14,19 @@ const slides: SlideItem[] = [
     id: '1',
     title: 'Instant Crypto Transfers',
     description: "Grow your investments with Tranxact's tools designed to empower your financial journey.",
-    image: require('../assets/images/instant_transfer.png'), // Assuming images are in assets folder
+    image: require('../../assets//images/instant_transfer.png'), // Assuming images are in assets folder
   },
   {
     id: '2',
     title: 'Real Time Tracking',
     description: "Grow your investments with Tranxact's tools designed to empower your financial journey.",
-    image: require('../assets/images/real_time_tracking.png'),
+    image: require('../../assets/images/real_time_tracking.png'),
   },
   {
     id: '3',
     title: 'Currency Swap in Seconds',
     description: "Grow your investments with Tranxact's tools designed to empower your financial journey.",
-    image: require('../assets/images/currency_swap.png'),
+    image: require('../../assets/images/currency_swap.png'),
   },
 ];
 
@@ -106,7 +106,7 @@ const OnboardingScreen = () => {
             <View className="px-6">
               <TouchableOpacity
                 className="bg-white py-4 rounded-lg mb-4"
-                onPress={() => router.push('/signup')}
+                onPress={() => router.push('/onboarding/signup')}
               >
                 <Text className="text-black text-center font-bold text-lg">
                   Get Started
@@ -115,7 +115,7 @@ const OnboardingScreen = () => {
 
               <TouchableOpacity
                 className="py-2"
-                onPress={() => router.push('/login')}
+                onPress={() => router.push('/onboarding/login')}
               >
                 <Text className="text-white text-center text-lg">
                   Sign In

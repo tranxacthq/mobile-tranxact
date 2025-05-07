@@ -65,7 +65,7 @@ const Setup2FA = () => {
             <Text className="text-2xl font-bold mb-4 text-white">Set Up Two-Factor Authentication</Text>
             <Text className="text-lg mb-2 text-white">Scan the QR code below with your authenticator app:</Text>
             <Image
-                source={{ uri: 'https://via.placeholder.com/150' }} // Replace with your QR code generation logic
+                source={{ uri: 'https://via.placeholder.com/150' }}
                 style={{ width: 150, height: 150, marginBottom: 16 }}
             />
             <Text className="text-lg mb-2 text-white">Or enter this key manually:</Text>
