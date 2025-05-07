@@ -2,13 +2,32 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import Button from '@/components/Button';
-
+import * as Clipboard from 'expo-clipboard';
 export default function Verify2faScreen() {
     const { email } = useLocalSearchParams<{ email: string }>();
-
+    const [copiedText, setCopiedText] = useState('');
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
     const inputRefs = useRef<(TextInput | null)[]>([]);
     const containerRef = useRef<View>(null);
+
+    const handlePasteFromClipboard = async () => {
+        try {
+            const text = await Clipboard.getStringAsync();
+            const cleanText = text.trim();
+
+            if (/^\d{6}$/.test(cleanText)) {
+                const newOtp = cleanText.split('');
+                setOtp(newOtp);
+
+                const lastIndex = Math.min(newOtp.length - 1, 5);
+                inputRefs.current[lastIndex]?.focus();
+            } else {
+                alert('Clipboard does not contain a valid 6-digit code.');
+            }
+        } catch (error) {
+            console.error('Failed to read clipboard:', error);
+        }
+    };
 
 
     const handleOtpChange = (value: string, index: number) => {
@@ -105,7 +124,7 @@ export default function Verify2faScreen() {
                                 className="flex-row justify-between w-full"
                             >
                                 {otp.map((digit, index) => (
-                                    <View key={index} className="w-14 h-16 bg-[#101115] rounded-lg justify-center items-center">
+                                    <View key={index} className="w-14 h-16 bg-[#F1F6F90A] rounded-lg justify-center items-center">
                                         <TextInput
                                             ref={ref => {
                                                 inputRefs.current[index] = ref;
@@ -122,9 +141,11 @@ export default function Verify2faScreen() {
                                 ))}
                             </TouchableOpacity>
                         </View>
-
-                        <View className="items-center mt-12 border border-gray-600 rounded-lg py-6  flex justify-center">
-                            <TouchableOpacity onPress={() => { }} className="">
+                        <View className="items-center mt-12 border border-gray-600 rounded-lg py-6 flex justify-center">
+                            <TouchableOpacity
+                                onPress={handlePasteFromClipboard}
+                                className=""
+                            >
                                 <Text className="text-teal-400 text-base">Paste from clipboard</Text>
                             </TouchableOpacity>
                         </View>
