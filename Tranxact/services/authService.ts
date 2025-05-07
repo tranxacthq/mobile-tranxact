@@ -79,10 +79,9 @@ export const authService = {
         });
     },
 
-    // Original methods (kept for backward compatibility)
-    login: authApiService.login,
-    signup: authApiService.signup,
-    verifyOtp: authApiService.verifyOtp,
-    completeSignup: authApiService.completeSignup,
-    setup2FA: authApiService.setup2FA
+    // login: authApiService.login,
+    // signup: authApiService.signup,
+    // verifyOtp: authApiService.verifyOtp,
+    // completeSignup: authApiService.completeSignup,
+    // setup2FA: authApiService.setup2FA
 };

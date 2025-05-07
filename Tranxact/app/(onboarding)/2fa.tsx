@@ -23,14 +23,17 @@ const Setup2FA = () => {
                 <View className='w-full py-4 border rounded-lg border-gray-300  mb-4 flex-row items-center justify-between gap-1  px-4'>
                     <View className='flex-col gap-1'>
                         <Text className='text-white'>set-up key</Text>
-                        <Text className='text-white'>ABC123DEF456GHI789</Text>
+                        <Text className='text-white lowercase'>ABC123DEF456GHI789</Text>
                     </View>
                     <Button
                         title="Copy"
                         onPress={() => {
                             Alert.alert('Copied', 'Set-up key copied to clipboard');
                         }}
-                        className="rounded-lg px-6 items-center justify-center text-[12px] font-extralight"
+                        size='small'
+                        textClassName='text-[12px] font-light text-black'
+                        variant='primary'
+                        className="rounded-lg px-6 items-center justify-center bg-[#3CC8C8] text-black"
                     />
                 </View>
                 <Text className="text-lg mb-2 text-white">Or scan this QrCode</Text>

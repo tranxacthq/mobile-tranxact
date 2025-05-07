@@ -87,7 +87,7 @@ export default function Verify2faScreen() {
     const handleVerify = () => {
         const otpValue = otp.join('');
         console.log('Verifying OTP:', otpValue, 'for email:', email);
-        router.push(`/(onboarding)/completesignup?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otpValue)}`);
+        router.push('/(onboarding)/loginpin');
     };
 
 

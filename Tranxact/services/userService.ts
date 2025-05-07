@@ -3,7 +3,6 @@ import { User, UserProfileUpdateData } from '@/types/user';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 
-// Base API functions
 const userApiService = {
     getCurrentUser: async (): Promise<User> => {
         const response = await api.get<User>('/users/me');
@@ -33,6 +32,6 @@ export const userService = {
         });
     },
 
-    getCurrentUser: userApiService.getCurrentUser,
-    updateProfile: userApiService.updateProfile
+    // getCurrentUser: userApiService.getCurrentUser,
+    // updateProfile: userApiService.updateProfile
 };
