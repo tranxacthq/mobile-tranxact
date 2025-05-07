@@ -4,10 +4,8 @@ import { router } from 'expo-router';
 import Button from '@/components/Button';
 const Setup2FA = () => {
 
-
-
     const handleSetup = () => {
-        router.push('/onboarding/verify2fa');
+        router.push('/(onboarding)/verify2fa');
     };
 
     return (
@@ -32,7 +30,7 @@ const Setup2FA = () => {
                         onPress={() => {
                             Alert.alert('Copied', 'Set-up key copied to clipboard');
                         }}
-                        className="rounded-lg px-4 py-1 items-center justify-center text-xs font-extralight"
+                        className="rounded-lg px-6 items-center justify-center text-[12px] font-extralight"
                     />
                 </View>
                 <Text className="text-lg mb-2 text-white">Or scan this QrCode</Text>

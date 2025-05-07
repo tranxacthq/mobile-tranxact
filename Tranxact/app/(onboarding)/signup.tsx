@@ -78,7 +78,7 @@ export default function SignupScreen() {
             alert("Please enter your email address");
             return;
         }
-        router.push({ pathname: '/onboarding/verify', params: { email } });
+        router.push({ pathname: '/(onboarding)/verify', params: { email } });
     };
     const user = AsyncStorage.getItem('user');
     console.log('User from AsyncStorage:', user);
@@ -158,7 +158,7 @@ export default function SignupScreen() {
                         <View className="mb-8">
                             <View className="flex-row justify-center">
                                 <Text className="text-gray-400">Already have an account? </Text>
-                                <TouchableOpacity onPress={() => router.push('/onboarding/login')}>
+                                <TouchableOpacity onPress={() => router.push('/(onboarding)/login')}>
                                     <Text className="text-teal-400 font-medium">Login</Text>
                                 </TouchableOpacity>
                             </View>

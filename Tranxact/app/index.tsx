@@ -29,7 +29,7 @@ const Index = () => {
         resizeMode='contain'
         style={[{ width: 200, height: 50 }, animatedStyle]}
       />
-      <View className='flex-row gap-1 flex-col'>
+      <View className='gap-1 flex-col'>
         <Text className='text-white text-2xl'>Crypto, Simplified.</Text>
         <Text className='text-white text-2xl text-center'>Power, Amplified.</Text>
       </View>

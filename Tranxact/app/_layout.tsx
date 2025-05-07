@@ -48,7 +48,7 @@ export default function RootLayout() {
         <AuthProvider>
           <Stack initialRouteName="index">
             <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
           </Stack>
         </AuthProvider>
       </ApiProvider>

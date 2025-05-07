@@ -106,7 +106,7 @@ const OnboardingScreen = () => {
             <View className="px-6">
               <TouchableOpacity
                 className="bg-white py-4 rounded-lg mb-4"
-                onPress={() => router.push('/onboarding/signup')}
+                onPress={() => router.push('/(onboarding)/signup')}
               >
                 <Text className="text-black text-center font-bold text-lg">
                   Get Started
@@ -115,7 +115,7 @@ const OnboardingScreen = () => {
 
               <TouchableOpacity
                 className="py-2"
-                onPress={() => router.push('/onboarding/login')}
+                onPress={() => router.push('/(onboarding)/login')}
               >
                 <Text className="text-white text-center text-lg">
                   Sign In

@@ -1,7 +1,4 @@
 import { SplashScreen, Stack } from "expo-router";
-import { ApiProvider } from "@/context/apiContext";
-import { AuthProvider } from "@/context/authContext";
-import { QueryProvider } from "@/context/qeuryContext";
 
 
 SplashScreen.preventAutoHideAsync()

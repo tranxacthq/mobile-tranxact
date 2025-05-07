@@ -61,7 +61,7 @@ export default function Login() {
     //   alert("Please enter your password");
     //   return;
     // }
-    router.push('/onboarding/2fa');
+    router.push('/(onboarding)/2fa');
   };
 
   return (
@@ -146,7 +146,7 @@ export default function Login() {
             <View className="mb-8">
               <View className="flex-row justify-center">
                 <Text className="text-gray-400">Don't have an account? </Text>
-                <TouchableOpacity onPress={() => router.push('/onboarding/signup')}>
+                <TouchableOpacity onPress={() => router.push('/(onboarding)/signup')}>
                   <Text className="text-teal-400 font-medium">Sign up</Text>
                 </TouchableOpacity>
               </View>

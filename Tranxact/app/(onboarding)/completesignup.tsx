@@ -45,7 +45,7 @@ export default function CompleteAccountScreen() {
             whatsappNumber
         });
         router.push({
-            pathname: '/onboarding/2fa',
+            pathname: '/(onboarding)/2fa',
             params: { email: email }
         });
     };
@@ -155,7 +155,7 @@ export default function CompleteAccountScreen() {
                             />
                             <View className="flex-row justify-center">
                                 <Text className="text-gray-400">Already have an account? </Text>
-                                <TouchableOpacity onPress={() => router.push('/onboarding/login')}>
+                                <TouchableOpacity onPress={() => router.push('/(onboarding)/login')}>
                                     <Text className="text-teal-400">Login</Text>
                                 </TouchableOpacity>
                             </View>
