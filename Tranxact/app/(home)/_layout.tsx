@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
-
+import { MaterialCommunityIcons, Ionicons, AntDesign } from '@expo/vector-icons';
 const HomeLayout = () => {
     return (
         <Tabs screenOptions={{
@@ -16,35 +16,9 @@ const HomeLayout = () => {
                 borderTopColor: '#1F1F1F',
                 borderTopWidth: 0,
             },
-            tabBarActiveTintColor: '#fff',
+            tabBarActiveTintColor: '#3CC8C8',
             tabBarInactiveTintColor: '#fff',
-            tabBarLabelStyle: {
-                fontSize: 12,
-                fontFamily: 'Poppins_400Regular',
-                textTransform: 'capitalize',
-                marginBottom: 5,
-            },
-            // tabBarIconStyle: {
-            //     display: 'none',
-            // },
-            tabBarItemStyle: {
-                padding: 0,
-                margin: 0,
-                borderRadius: 0,
-                backgroundColor: 'transparent',
-                borderTopColor: 'transparent',
-                borderTopWidth: 0,
-                borderBottomColor: 'transparent',
-                borderBottomWidth: 0,
-                borderLeftColor: 'transparent',
-                borderLeftWidth: 0,
-                borderRightColor: 'transparent',
-                borderRightWidth: 0,
-                borderWidth: 0,
-                borderColor: 'transparent',
-                borderStyle: 'solid',
-                borderBottomLeftRadius: 0,
-            }
+
         }} initialRouteName='index'>
             <Tabs.Screen
                 name='index'
@@ -53,7 +27,7 @@ const HomeLayout = () => {
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <View>
-                            <Text style={{ color }}></Text>
+                            <MaterialCommunityIcons name='home' color={color} size={20} />
                         </View>
                     ),
                 }}
@@ -65,7 +39,7 @@ const HomeLayout = () => {
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <View>
-                            <Text style={{ color }}></Text>
+                            <MaterialCommunityIcons name='wallet' color={color} size={20} />
                         </View>
                     ),
                 }}
@@ -77,7 +51,7 @@ const HomeLayout = () => {
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <View>
-                            <Text style={{ color }}></Text>
+                            <AntDesign name='swap' color={color} size={20} />
                         </View>
                     ),
                 }}
@@ -90,6 +64,18 @@ const HomeLayout = () => {
                     tabBarIcon: ({ color }) => (
                         <View>
                             <Text style={{ color }}></Text>
+                        </View>
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name='profile'
+                options={{
+                    title: 'Profile',
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => (
+                        <View>
+                            <AntDesign name='user' color={color} size={20} />
                         </View>
                     ),
                 }}
