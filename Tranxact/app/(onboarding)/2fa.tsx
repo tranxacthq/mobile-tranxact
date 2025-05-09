@@ -33,7 +33,7 @@ const Setup2FA = () => {
                         size='small'
                         textClassName='text-[12px] font-light text-black'
                         variant='primary'
-                        className="rounded-lg px-6 items-center justify-center bg-[#3CC8C8] text-black"
+                        className="rounded-lg px-6 items-center justify-center bg-teal-400 text-black"
                     />
                 </View>
                 <Text className="text-lg mb-2 text-white">Or scan this QrCode</Text>

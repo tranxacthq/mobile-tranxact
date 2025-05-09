@@ -80,8 +80,6 @@ export default function SignupScreen() {
         }
         router.push({ pathname: '/(onboarding)/verify', params: { email } });
     };
-    const user = AsyncStorage.getItem('user');
-    console.log('User from AsyncStorage:', user);
     return (
         <SafeAreaView className="flex-1 bg-[#07070C]">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

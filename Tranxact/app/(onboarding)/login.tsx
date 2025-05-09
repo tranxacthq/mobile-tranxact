@@ -34,7 +34,6 @@ export default function Login() {
 
       await AsyncStorage.setItem('user', JSON.stringify(data));
       setUserInfo(data);
-      console.log('User data:', data);
     } catch (error) {
       console.error('Error fetching user info:', error);
     }
@@ -42,8 +41,6 @@ export default function Login() {
 
   useEffect(() => {
     if (response?.type === 'success' && response.authentication?.accessToken) {
-      console.log('Access Token:', response.authentication.accessToken);
-      console.log('User Info:', response.authentication);
       getUserInfo(response.authentication.accessToken);
     }
   }, [response]);
@@ -51,16 +48,25 @@ export default function Login() {
   const handleGoogleSignIn = async () => {
     await promptAsync();
   };
+  const handleAppleSignIn = async () => {
+    try {
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+    } catch (error: any) {
+      if (error.code === 'ERR_CANCELED') {
+        console.log('User cancelled Apple Sign-In');
+      } else {
+        console.error('Apple Sign-In Error', error);
+      }
+    }
+  };
+
 
   const handleContinue = () => {
-    // if (!email.trim()) {
-    //   alert("Please enter your email address");
-    //   return;
-    // }
-    // if (!password.trim()) {
-    //   alert("Please enter your password");
-    //   return;
-    // }
     router.push('/(onboarding)/2fa');
   };
 
@@ -106,6 +112,13 @@ export default function Login() {
                     onChangeText={setPassword}
                   />
                 </View>
+
+                <View className="flex-row gap-2">
+                  <Text className="text-gray-400">Forgot password?</Text>
+                  <TouchableOpacity onPress={() => router.push('/(onboarding)/forgotpassword')}>
+                    <Text className="text-teal-400 font-medium">Recover</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
 
               <Button
@@ -124,16 +137,21 @@ export default function Login() {
                 <Text className="text-white mx-4">Or Sign in with</Text>
                 <View className="h-px bg-gray-600 flex-1" />
               </View>
-
               <View className="flex-row justify-center items-center gap-8">
-                <TouchableOpacity className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center">
+                <TouchableOpacity
+                  className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center"
+                  onPress={handleAppleSignIn}
+                >
                   <Image
                     source={require('../../assets/images/apple.png')}
                     className="w-14 h-14"
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
-                <TouchableOpacity className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center">
+                <TouchableOpacity
+                  className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center"
+                  onPress={handleGoogleSignIn}
+                >
                   <Image
                     source={require('../../assets/images/google.png')}
                     className="w-8 h-8"

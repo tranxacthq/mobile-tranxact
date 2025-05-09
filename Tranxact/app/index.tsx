@@ -11,8 +11,7 @@ const Index = () => {
     scale.value = withTiming(1, { duration: 2000 })
 
     const timeout = setTimeout(() => {
-      router.replace('/onboarding')
-      console.log('Navigate to onboarding screen')
+      router.replace('/(home)')
     }, 5000)
 
     return () => clearTimeout(timeout)
