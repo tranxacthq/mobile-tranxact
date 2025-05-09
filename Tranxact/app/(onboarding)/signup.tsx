@@ -120,7 +120,7 @@ export default function SignupScreen() {
                                 variant="primary"
                                 onPress={handleContinue}
                                 className="mb-10 mt-10 bg-white rounded-xl py-4 items-center w-[100%]"
-                                textClassName="text-[16px] font-poppins"
+                                textClassName='text-[16px] font-light text-black font-poppins'
                             />
                         </View>
 

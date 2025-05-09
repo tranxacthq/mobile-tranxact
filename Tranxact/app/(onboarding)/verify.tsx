@@ -152,7 +152,7 @@ export default function VerificationScreen() {
                             variant="primary"
                             onPress={handleVerify}
                             className="mb-10 bg-white rounded-xl py-4 items-center w-[100%] "
-                            textClassName="text-[16px] font-poppins"
+                            textClassName='text-[16px] font-light text-black font-poppins'
                         />
                         <View className="flex-row justify-center mt-8">
                             <Text className="text-gray-400">Already have an account? </Text>

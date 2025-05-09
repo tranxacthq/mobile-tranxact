@@ -48,7 +48,10 @@
       "expo-secure-store"
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "remoteBuildCache": {
+        "provider": "eas"
+      }
     },
     "extra": {
       "router": {

@@ -45,6 +45,8 @@ const Setup2FA = () => {
                     title="Activate"
                     onPress={handleSetup}
                     className='w-full mt-10'
+                    variant='primary'
+                    textClassName='text-[16px] font-light text-black'
                 />
             </View>
         </SafeAreaView>
