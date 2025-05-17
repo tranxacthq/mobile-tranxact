@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
 import { MaterialCommunityIcons, AntDesign, Octicons } from '@expo/vector-icons';
+
 const HomeLayout = () => {
     return (
         <Tabs screenOptions={{
@@ -12,13 +13,21 @@ const HomeLayout = () => {
                 left: 0,
                 right: 0,
                 elevation: 0,
-                backgroundColor: '#1F1F1F',
-                borderTopColor: '#1F1F1F',
+                backgroundColor: 'rgba(31, 31, 31, 0.98)',
                 borderTopWidth: 0,
+                shadowOffset: {
+                    width: 0,
+                    height: 0,
+                },
+                shadowOpacity: 0,
+                shadowRadius: 0,
             },
             tabBarActiveTintColor: '#3CC8C8',
             tabBarInactiveTintColor: '#fff',
-
+            tabBarItemStyle: {
+                borderRadius: 20,
+                marginHorizontal: 5,
+            },
         }} initialRouteName='index'>
             <Tabs.Screen
                 name='index'

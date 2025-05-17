@@ -110,7 +110,7 @@ const HomeScreen = () => {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-black mb-[50px]">
+        <SafeAreaView className="flex-1 bg-black">
             <StatusBar barStyle="light-content" />
             <ScrollView
                 className="flex-1 px-2 pt-2"
@@ -131,11 +131,11 @@ const HomeScreen = () => {
                             {
                                 showBalance ? (
                                     <Pressable onPress={() => setShowBalance(false)}>
-                                        <MaterialCommunityIcons name="eye-off-outline" size={22} color="gray" />
+                                        <MaterialCommunityIcons name="eye-off-outline" size={18} color="gray" />
                                     </Pressable>
                                 ) : (
                                     <Pressable onPress={() => setShowBalance(true)}>
-                                        <MaterialCommunityIcons name="eye-outline" size={22} color="gray" />
+                                        <MaterialCommunityIcons name="eye-outline" size={18} color="gray" />
                                     </Pressable>
                                 )
                             }
@@ -199,7 +199,7 @@ const HomeScreen = () => {
                 <View className="mb-8 p-2">
                     <Text className="text-white text-2xl font-bold mb-3">Trending Markets</Text>
 
-                    <Pressable className="bg-gray-800 p-4 rounded-xl mb-3">
+                    <Pressable className="bg-[#212125] p-4 rounded-xl mb-3">
                         <View className="flex-row items-center mb-2">
                             <View className="w-8 h-8 rounded-full bg-blue-500 items-center justify-center">
                                 <Text className="text-white font-bold">BTC</Text>
@@ -210,7 +210,7 @@ const HomeScreen = () => {
                         <Text className="text-gray-400">Bitcoin has again surpassed the $65,000 mark as institutional investors continue to...</Text>
                     </Pressable>
 
-                    <Pressable className="bg-gray-800 p-4 rounded-xl">
+                    <Pressable className="bg-[#212125] p-4 rounded-xl mb-8">
                         <View className="flex-row items-center mb-2">
                             <View className="w-8 h-8 rounded-full bg-gray-700 items-center justify-center">
                                 <Text className="text-white font-bold">M</Text>
