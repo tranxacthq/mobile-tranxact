@@ -1,7 +1,6 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, StatusBar, SafeAreaView, RefreshControl, Pressable } from 'react-native';
+import { View, Text, ScrollView, Pressable, StatusBar, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
-import { MaterialCommunityIcons, Ionicons, FontAwesome5, Feather } from '@expo/vector-icons';
-import { useCrypto } from '@/services/cryptoService';
+import { MaterialCommunityIcons, FontAwesome5, Feather } from '@expo/vector-icons';
 
 interface Asset {
     id: number;
@@ -115,15 +114,6 @@ const HomeScreen = () => {
             <ScrollView
                 className="flex-1 px-2 pt-2"
             >
-                <View className="flex-row justify-between items-center mb-6 mt-2 p-2">
-                    <View className='flex-row items-center gap-1'>
-                        <Text className="text-white text-2xl font-bold">Hello,</Text>
-                        <Text className="text-white text-2xl font-bold">Alex Johnson</Text>
-                    </View>
-                    <TouchableOpacity className="w-10 h-10 bg-gray-800 rounded-full items-center justify-center">
-                        <Ionicons name="notifications-outline" size={22} color="white" />
-                    </TouchableOpacity>
-                </View>
                 <View className="py-5 rounded-xl mb-6 flex-col p-2">
                     <View className='flex-row items-center mb-4 justify-between p-2 '>
                         <View className='flex-row items-center gap-2'>
@@ -141,13 +131,13 @@ const HomeScreen = () => {
                             }
                         </View>
                         <View className="flex-row items-center bg-[#212125] rounded-lg px-2 py-1">
-                            <TouchableOpacity
+                            <Pressable
                                 onPress={toggleCurrency}
                                 className="flex-row items-center"
                             >
                                 <Text className="text-white font-bold mr-1">{selectedCurrency}</Text>
                                 <MaterialCommunityIcons name="chevron-down" size={18} color="white" />
-                            </TouchableOpacity>
+                            </Pressable>
                         </View>
                     </View>
                     {showBalance ? (
@@ -186,9 +176,9 @@ const HomeScreen = () => {
                 <View className="mb-6 p-2">
                     <View className="flex-row justify-between items-center mb-3">
                         <Text className="text-white text-2xl font-bold">Holdings</Text>
-                        <TouchableOpacity>
+                        <Pressable>
                             <Text className="text-teal-500">See All</Text>
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
 
                     {walletAssets.map(asset => (

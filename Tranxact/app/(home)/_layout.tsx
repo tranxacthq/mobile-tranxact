@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
-import { MaterialCommunityIcons, AntDesign, Octicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, AntDesign, Octicons, Ionicons } from '@expo/vector-icons';
 
 const HomeLayout = () => {
     return (
         <Tabs screenOptions={{
-            headerShown: false,
+            // headerShown: false,
             tabBarStyle: {
                 position: 'absolute',
                 bottom: 0,
@@ -22,7 +22,7 @@ const HomeLayout = () => {
                 shadowOpacity: 0,
                 shadowRadius: 0,
             },
-            tabBarActiveTintColor: '#3CC8C8',
+            tabBarActiveTintColor: '#212125',
             tabBarInactiveTintColor: '#fff',
             tabBarItemStyle: {
                 borderRadius: 20,
@@ -32,13 +32,34 @@ const HomeLayout = () => {
             <Tabs.Screen
                 name='index'
                 options={{
-                    title: 'Home',
-                    headerShown: false,
+                    title: '',
                     tabBarIcon: ({ color }) => (
                         <View>
                             <MaterialCommunityIcons name='home' color={color} size={20} />
                         </View>
                     ),
+                    headerRight: () => (
+                        <View className="">
+                            <Pressable className="w-10 h-10 rounded-full items-center justify-center">
+                                <Ionicons name="notifications-outline" size={22} color="white" />
+                            </Pressable>
+                        </View>
+                    ),
+                    headerLeft: () => (
+                        <View className="">
+                            <View className='flex-row gap-1 pl-2'>
+                                <Text className="text-white text-2xl font-bold">Hello,</Text>
+                                <Text className="text-white text-2xl font-bold">Alex Johnson</Text>
+                            </View>
+                        </View>
+                    ),
+                    headerStyle: {
+                        backgroundColor: 'black'
+                    },
+                    headerTintColor: '#ffffff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
                 }}
             />
             <Tabs.Screen
