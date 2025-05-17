@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TextInput, Pressable, SafeAreaView, KeyboardAvoidingView, Platform, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { router } from 'expo-router';
 import Button from '@/components/Button';
 import * as WebBrowser from 'expo-web-browser';
@@ -115,9 +115,9 @@ export default function Login() {
 
                 <View className="flex-row gap-2">
                   <Text className="text-gray-400">Forgot password?</Text>
-                  <TouchableOpacity onPress={() => router.push('/(onboarding)/forgotpassword')}>
+                  <Pressable onPress={() => router.push('/(onboarding)/forgotpassword')}>
                     <Text className="text-teal-400 font-medium">Recover</Text>
-                  </TouchableOpacity>
+                  </Pressable>
                 </View>
               </View>
 
@@ -138,7 +138,7 @@ export default function Login() {
                 <View className="h-px bg-gray-600 flex-1" />
               </View>
               <View className="flex-row justify-center items-center gap-8">
-                <TouchableOpacity
+                <Pressable
                   className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center"
                   onPress={handleAppleSignIn}
                 >
@@ -147,8 +147,8 @@ export default function Login() {
                     className="w-14 h-14"
                     resizeMode="contain"
                   />
-                </TouchableOpacity>
-                <TouchableOpacity
+                </Pressable>
+                <Pressable
                   className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center"
                   onPress={handleGoogleSignIn}
                 >
@@ -157,16 +157,16 @@ export default function Login() {
                     className="w-8 h-8"
                     resizeMode="contain"
                   />
-                </TouchableOpacity>
+                </Pressable>
               </View>
             </View>
 
             <View className="mb-8">
               <View className="flex-row justify-center">
                 <Text className="text-gray-400">Don't have an account? </Text>
-                <TouchableOpacity onPress={() => router.push('/(onboarding)/signup')}>
+                <Pressable onPress={() => router.push('/(onboarding)/signup')}>
                   <Text className="text-teal-400 font-medium">Sign up</Text>
-                </TouchableOpacity>
+                </Pressable>
               </View>
             </View>
           </View>

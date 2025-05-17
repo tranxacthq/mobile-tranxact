@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-    View, Text, TextInput, TouchableOpacity, SafeAreaView, KeyboardAvoidingView,
+    View, Text, TextInput, Pressable, SafeAreaView, KeyboardAvoidingView,
     Platform, Image, TouchableWithoutFeedback, Keyboard
 } from 'react-native';
 import { router } from 'expo-router';
@@ -130,7 +130,7 @@ export default function SignupScreen() {
                             </View>
 
                             <View className="flex-row justify-center items-center gap-8">
-                                <TouchableOpacity
+                                <Pressable
                                     className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center"
                                     onPress={handleAppleSignIn}
                                 >
@@ -139,8 +139,8 @@ export default function SignupScreen() {
                                         className="w-14 h-14"
                                         resizeMode="contain"
                                     />
-                                </TouchableOpacity>
-                                <TouchableOpacity
+                                </Pressable>
+                                <Pressable
                                     className="w-16 h-16 rounded-full bg-black border border-gray-700 items-center justify-center"
                                     onPress={handleGoogleSignIn}
                                 >
@@ -149,16 +149,16 @@ export default function SignupScreen() {
                                         className="w-8 h-8"
                                         resizeMode="contain"
                                     />
-                                </TouchableOpacity>
+                                </Pressable>
                             </View>
                         </View>
 
                         <View className="mb-8">
                             <View className="flex-row justify-center">
                                 <Text className="text-gray-400">Already have an account? </Text>
-                                <TouchableOpacity onPress={() => router.push('/(onboarding)/login')}>
+                                <Pressable onPress={() => router.push('/(onboarding)/login')}>
                                     <Text className="text-teal-400 font-medium">Login</Text>
-                                </TouchableOpacity>
+                                </Pressable>
                             </View>
                         </View>
                     </View>

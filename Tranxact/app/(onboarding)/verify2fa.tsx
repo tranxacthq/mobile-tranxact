@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, Pressable, SafeAreaView, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import Button from '@/components/Button';
 import * as Clipboard from 'expo-clipboard';
@@ -99,9 +99,9 @@ export default function Verify2faScreen() {
                 <View className="px-6 flex-1 justify-between">
                     <View>
                         <View className="flex-row items-center mt-6">
-                            <TouchableOpacity onPress={() => router.back()} className="mr-4">
+                            <Pressable onPress={() => router.back()} className="mr-4">
                                 <Text className="text-white text-2xl">←</Text>
-                            </TouchableOpacity>
+                            </Pressable>
                         </View>
                         <View className='mt-8'>
                             <Text className="text-2xl font-bold mb-4 text-white text-center">Set Up Two-Factor Authentication</Text>
@@ -116,10 +116,9 @@ export default function Verify2faScreen() {
 
                         <View className="mt-12">
                             <Text className="text-gray-400 text-lg mb-4">Enter 6 digit code </Text>
-                            <TouchableOpacity
+                            <Pressable
                                 ref={containerRef}
                                 onPress={handleContainerPress}
-                                activeOpacity={1}
                                 className="flex-row justify-between w-full"
                             >
                                 {otp.map((digit, index) => (
@@ -138,15 +137,15 @@ export default function Verify2faScreen() {
                                         />
                                     </View>
                                 ))}
-                            </TouchableOpacity>
+                            </Pressable>
                         </View>
                         <View className="items-center mt-12 border border-gray-600 rounded-lg py-6 flex justify-center">
-                            <TouchableOpacity
+                            <Pressable
                                 onPress={handlePasteFromClipboard}
                                 className=""
                             >
                                 <Text className="text-teal-400 text-base">Paste from clipboard</Text>
-                            </TouchableOpacity>
+                            </Pressable>
                         </View>
                     </View>
 

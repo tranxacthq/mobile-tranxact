@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TextInput, Alert, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Alert, Image, Pressable, SafeAreaView } from 'react-native';
 import { router } from 'expo-router';
 import Button from '@/components/Button';
 const Setup2FA = () => {
@@ -10,9 +10,9 @@ const Setup2FA = () => {
 
     return (
         <SafeAreaView className='flex-1 bg-[#07070C]'>
-            <TouchableOpacity onPress={() => router.back()} className="mt-6 ml-4">
+            <Pressable onPress={() => router.back()} className="mt-6 ml-4">
                 <Text className="text-white text-2xl">←</Text>
-            </TouchableOpacity>
+            </Pressable>
             <View className="justify-center items-center p-8 gap-4">
                 <Text className="text-2xl font-bold mb-4 text-white">Set Up Two-Factor Authentication</Text>
                 <Text className="text-[12px] leading-6 mb-2 text-white ">

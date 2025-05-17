@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, Pressable, SafeAreaView, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import Button from '@/components/Button';
 
@@ -92,9 +92,9 @@ export default function VerificationScreen() {
                 <View className="px-6 flex-1 justify-between">
                     <View>
                         <View className="flex-row items-center mt-6">
-                            <TouchableOpacity onPress={() => router.back()} className="mr-4">
+                            <Pressable onPress={() => router.back()} className="mr-4">
                                 <Text className="text-white text-2xl">←</Text>
-                            </TouchableOpacity>
+                            </Pressable>
                             <Text className="text-white text-3xl font-semibold">Verify your email</Text>
                         </View>
 
@@ -108,10 +108,9 @@ export default function VerificationScreen() {
 
                         <View className="mt-12">
                             <Text className="text-gray-400 text-lg mb-4">Enter OTP</Text>
-                            <TouchableOpacity
+                            <Pressable
                                 ref={containerRef}
                                 onPress={handleContainerPress}
-                                activeOpacity={1}
                                 className="flex-row justify-between w-full"
                             >
                                 {otp.map((digit, index) => (
@@ -130,7 +129,7 @@ export default function VerificationScreen() {
                                         />
                                     </View>
                                 ))}
-                            </TouchableOpacity>
+                            </Pressable>
                         </View>
 
                         <View className="items-center mt-12">
@@ -139,9 +138,9 @@ export default function VerificationScreen() {
                                     Resend code in <Text className="text-teal-400">{timeLeft} secs</Text>
                                 </Text>
                             ) : (
-                                <TouchableOpacity onPress={handleResend}>
+                                <Pressable onPress={handleResend}>
                                     <Text className="text-teal-400 text-base">Resend</Text>
-                                </TouchableOpacity>
+                                </Pressable>
                             )}
                         </View>
                     </View>
@@ -156,9 +155,9 @@ export default function VerificationScreen() {
                         />
                         <View className="flex-row justify-center mt-8">
                             <Text className="text-gray-400">Already have an account? </Text>
-                            <TouchableOpacity onPress={() => router.push('/(onboarding)/login')}>
+                            <Pressable onPress={() => router.push('/(onboarding)/login')}>
                                 <Text className="text-teal-400">Login</Text>
-                            </TouchableOpacity>
+                            </Pressable>
                         </View>
                     </View>
                 </View>

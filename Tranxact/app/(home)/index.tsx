@@ -1,6 +1,7 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, StatusBar, SafeAreaView, RefreshControl } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Image, StatusBar, SafeAreaView, RefreshControl, Pressable } from 'react-native';
+import React, { useState } from 'react';
 import { MaterialCommunityIcons, Ionicons, FontAwesome5, Feather } from '@expo/vector-icons';
+import { useCrypto } from '@/services/cryptoService';
 
 interface Asset {
     id: number;
@@ -9,13 +10,15 @@ interface Asset {
     amount: number;
     value: number;
 }
-interface Coin {
-    id: number;
+
+export interface ICoin {
+    id: string;
     name: string;
     symbol: string;
-    price: number;
-    priceChangePercent: number;
+    current_price: number;
+    price_change_percentage_24h: number;
     image: string;
+    market_cap_rank: number;
 }
 
 interface ActionButtonProps {
@@ -24,56 +27,33 @@ interface ActionButtonProps {
     background: string;
 }
 
-const CryptoCard = ({ coin }: { coin: Coin }) => {
-    const isPositive = coin.priceChangePercent >= 0;
-
-    return (
-        <TouchableOpacity className="bg-gray-800 p-4 rounded-xl flex-row justify-between items-center mb-3 w-full">
-            <View className="flex-row items-center">
-                <Image
-                    source={{ uri: coin.image }}
-                    className="w-10 h-10 rounded-full"
-                />
-                <View className="ml-3">
-                    <Text className="text-white font-bold text-lg">{coin.symbol.toUpperCase()}</Text>
-                    <Text className="text-gray-400">{coin.name}</Text>
-                </View>
-            </View>
-            <View className="items-end">
-                <Text className="text-white font-bold text-lg">${coin.price.toLocaleString()}</Text>
-                <View className="flex-row items-center">
-                    <Text
-                        className={isPositive ? "text-green-500" : "text-red-500"}
-                    >
-                        {isPositive ? "+" : ""}{coin.priceChangePercent.toFixed(2)}%
-                    </Text>
-                    <MaterialCommunityIcons
-                        name={isPositive ? "arrow-up-thin" : "arrow-down-thin"}
-                        size={16}
-                        color={isPositive ? "#10B981" : "#EF4444"}
-                    />
-                </View>
-            </View>
-        </TouchableOpacity>
-    );
+const EXCHANGE_RATES = {
+    USD_TO_NGN: 1500,
 };
 
-const WalletCard = ({ asset }: { asset: Asset }) => {
+
+
+const WalletCard = ({ asset, currency }: { asset: Asset, currency: 'USD' | 'NGN' }) => {
+    const value = currency === 'USD'
+        ? asset.value
+        : asset.value * EXCHANGE_RATES.USD_TO_NGN;
+    const currencySymbol = currency === 'USD' ? '$' : '₦';
+
     return (
-        <View className="bg-gray-800 p-4 rounded-xl mb-3">
-            <View className="flex-row justify-between items-center">
+        <View className="rounded-xl mb-3 p-2">
+            <View className="flex-row justify-between items-center gap-2">
                 <View className="flex-row items-center">
-                    <View className="w-10 h-10 rounded-full bg-teal-500 items-center justify-center">
+                    <View className="w-14 h-14 rounded-[8px] bg-[#2b2b2d] items-center justify-center">
                         <Text className="text-white font-bold">{asset.symbol.charAt(0)}</Text>
                     </View>
                     <View className="ml-3">
-                        <Text className="text-white font-bold">{asset.symbol}</Text>
-                        <Text className="text-gray-400 text-xs">{asset.name}</Text>
+                        <Text className="text-white text-2xl">{asset.name}</Text>
+                        <Text className=" text-gray-400">{asset.symbol}</Text>
                     </View>
                 </View>
                 <View className="items-end">
-                    <Text className="text-white font-bold">{asset.amount} {asset.symbol}</Text>
-                    <Text className="text-gray-400">${asset.value.toLocaleString()}</Text>
+                    <Text className="text-white text-lg">{currencySymbol}{value.toLocaleString()}</Text>
+                    <Text className="text-gray-400">{asset.amount} {asset.symbol}</Text>
                 </View>
             </View>
         </View>
@@ -82,29 +62,21 @@ const WalletCard = ({ asset }: { asset: Asset }) => {
 
 const ActionButton = ({ icon, title, background }: ActionButtonProps) => {
     return (
-        <TouchableOpacity className={`${background} p-4 rounded-xl items-center justify-center flex-1 mx-1`}>
-            <FontAwesome5 name={icon} size={20} color="white" />
-            <Text className="text-white mt-2">{title}</Text>
-        </TouchableOpacity>
+        <Pressable className='flex-1 items-center justify-between p-0'>
+            <View className='p-0 m-0 items-center'>
+                <View className={`${background} rounded-xl w-[60px] h-[70px] items-center justify-center`}>
+                    <FontAwesome5 name={icon} size={20} color="white" />
+                </View>
+                <Text className="text-white mt-2">{title}</Text>
+            </View>
+        </Pressable>
     );
 };
 
 const HomeScreen = () => {
-    const [refreshing, setRefreshing] = useState(false);
-    const [showBalance, setShowBalance] = useState(false);
-    const onRefresh = () => {
-        setRefreshing(true);
-        setTimeout(() => {
-            setRefreshing(false);
-        }, 2000);
-    };
+    const [showBalance, setShowBalance] = useState(true);
+    const [selectedCurrency, setSelectedCurrency] = useState<'USD' | 'NGN'>('USD');
 
-    const trendingCoins = [
-        { id: 1, name: 'Bitcoin', symbol: 'btc', price: 65432.10, priceChangePercent: 2.34, image: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png' },
-        { id: 2, name: 'Ethereum', symbol: 'eth', price: 3521.47, priceChangePercent: -1.28, image: 'https://cryptologos.cc/logos/ethereum-eth-logo.png' },
-        { id: 3, name: 'Solana', symbol: 'sol', price: 141.89, priceChangePercent: 5.62, image: 'https://cryptologos.cc/logos/solana-sol-logo.png' },
-        { id: 4, name: 'Cardano', symbol: 'ada', price: 0.45, priceChangePercent: -0.78, image: 'https://cryptologos.cc/logos/cardano-ada-logo.png' },
-    ];
 
     const walletAssets = [
         { id: 1, name: 'Bitcoin', symbol: 'BTC', amount: 0.245, value: 16030.86 },
@@ -112,95 +84,122 @@ const HomeScreen = () => {
         { id: 3, name: 'Solana', symbol: 'SOL', amount: 45.5, value: 6455.99 },
     ];
 
-    const totalValue = walletAssets.reduce((sum, asset) => sum + asset.value, 0);
+    const getTotalValue = () => {
+        const totalUSD = walletAssets.reduce((sum, asset) => sum + asset.value, 0);
+        return selectedCurrency === 'USD' ? totalUSD : totalUSD * EXCHANGE_RATES.USD_TO_NGN;
+    };
+
+    const getCurrencySymbol = () => selectedCurrency === 'USD' ? '$' : '₦';
+
+    const formatCurrencyValue = (value: number) => {
+        return value.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+        });
+    };
+
+    const toggleCurrency = () => {
+        setSelectedCurrency(selectedCurrency === 'USD' ? 'NGN' : 'USD');
+    };
+
+
+    const getProfitLossValue = () => {
+        const profitUSD = 3245.80;
+        return selectedCurrency === 'USD'
+            ? profitUSD
+            : profitUSD * EXCHANGE_RATES.USD_TO_NGN;
+    };
 
     return (
         <SafeAreaView className="flex-1 bg-black mb-[50px]">
             <StatusBar barStyle="light-content" />
             <ScrollView
                 className="flex-1 px-2 pt-2"
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                        tintColor="#FFFFFF"
-                    />
-                }
             >
-                <View className="flex-row justify-between items-center mb-6 mt-2">
-                    <View className='flex-col gap-1'>
-                        <Text className="text-gray-400">Welcome back</Text>
+                <View className="flex-row justify-between items-center mb-6 mt-2 p-2">
+                    <View className='flex-row items-center gap-1'>
+                        <Text className="text-white text-2xl font-bold">Hello,</Text>
                         <Text className="text-white text-2xl font-bold">Alex Johnson</Text>
                     </View>
                     <TouchableOpacity className="w-10 h-10 bg-gray-800 rounded-full items-center justify-center">
                         <Ionicons name="notifications-outline" size={22} color="white" />
                     </TouchableOpacity>
                 </View>
-
-                <View className="bg-gray-900 p-5 rounded-xl mb-6 flex-col">
-                    {
-                        showBalance ? (
-                            <TouchableOpacity onPress={() => setShowBalance(true)}>
-                                <Text className="text-white text-4xl font-bold text-center">${totalValue.toLocaleString()}</Text>
+                <View className="py-5 rounded-xl mb-6 flex-col p-2">
+                    <View className='flex-row items-center mb-4 justify-between p-2 '>
+                        <View className='flex-row items-center gap-2'>
+                            <Text className="text-[#6c757d] text-[16px] text-center">Current Balance</Text>
+                            {
+                                showBalance ? (
+                                    <Pressable onPress={() => setShowBalance(false)}>
+                                        <MaterialCommunityIcons name="eye-off-outline" size={22} color="gray" />
+                                    </Pressable>
+                                ) : (
+                                    <Pressable onPress={() => setShowBalance(true)}>
+                                        <MaterialCommunityIcons name="eye-outline" size={22} color="gray" />
+                                    </Pressable>
+                                )
+                            }
+                        </View>
+                        <View className="flex-row items-center bg-[#212125] rounded-lg px-2 py-1">
+                            <TouchableOpacity
+                                onPress={toggleCurrency}
+                                className="flex-row items-center"
+                            >
+                                <Text className="text-white font-bold mr-1">{selectedCurrency}</Text>
+                                <MaterialCommunityIcons name="chevron-down" size={18} color="white" />
                             </TouchableOpacity>
+                        </View>
+                    </View>
+                    {showBalance ? (
+                        <Pressable onPress={() => setShowBalance(false)}>
+                            <Text className="text-white text-5xl font-bold text-center">
+                                {getCurrencySymbol()}{formatCurrencyValue(getTotalValue())}
+                            </Text>
+                        </Pressable>
+                    ) : (
+                        <Pressable onPress={() => setShowBalance(true)}>
+                            <Text className="text-white text-4xl font-bold text-center">*****</Text>
+                        </Pressable>
+                    )}
+                    <Text className="text-green-500 mb-4 mt-2 text-center">
+                        +12.4% ({getCurrencySymbol()}{formatCurrencyValue(getProfitLossValue())})
+                    </Text>
 
-                        ) : (
-                            <TouchableOpacity onPress={() => setShowBalance(true)}>
-                                <Text className="text-white text-4xl font-bold text-center">*****</Text>
-                            </TouchableOpacity>
-                        )
-                    }
-                    <Text className="text-green-500 mb-4 mt-2 text-center">+12.4% ($3,245.80)</Text>
-
-                    {/* Withdraw and Deposit Buttons */}
                     <View className="flex-row justify-center mt-2">
-                        <TouchableOpacity className=" flex-row items-center justify-center py-3 px-6 rounded-lg mr-4">
+                        <Pressable className="flex-row items-center justify-center py-3 px-6 rounded-lg mr-4">
                             <Feather name="arrow-down-circle" size={18} color="#3CC8C8" />
                             <Text className="text-[#3CC8C8] font-medium ml-2">Deposit</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity className=" flex-row items-center justify-center py-3 px-6 rounded-lg">
+                        </Pressable>
+                        <Pressable className="flex-row items-center justify-center py-3 px-6 rounded-lg">
                             <Feather name="arrow-up-circle" size={18} color="white" />
                             <Text className="text-white font-medium ml-2">Withdraw</Text>
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
                 </View>
 
-                <View className="flex-row mb-6">
-                    <ActionButton icon="arrow-up" title="Send" background="" />
-                    <ActionButton icon="arrow-down" title="Receive" background="" />
-                    <ActionButton icon="exchange-alt" title="Swap" background="" />
+                <View className="flex-row mb-6 ">
+                    <ActionButton icon="arrow-up" title="Send" background="bg-[#2b2b2d]" />
+                    <ActionButton icon="arrow-down" title="Receive" background="bg-[#2b2b2d]" />
+                    <ActionButton icon="exchange-alt" title="Swap" background="bg-[#2b2b2d]" />
                 </View>
 
-                <View className="mb-6">
+                <View className="mb-6 p-2">
                     <View className="flex-row justify-between items-center mb-3">
-                        <Text className="text-white text-xl font-bold">Your Assets</Text>
+                        <Text className="text-white text-2xl font-bold">Holdings</Text>
                         <TouchableOpacity>
                             <Text className="text-teal-500">See All</Text>
                         </TouchableOpacity>
                     </View>
 
                     {walletAssets.map(asset => (
-                        <WalletCard key={asset.id} asset={asset} />
+                        <WalletCard key={asset.id} asset={asset} currency={selectedCurrency} />
                     ))}
                 </View>
 
-                <View className="mb-6">
-                    <View className="flex-row justify-between items-center mb-3">
-                        <Text className="text-white text-xl font-bold">Trending Coins</Text>
-                        <TouchableOpacity>
-                            <Text className="text-teal-500">See All</Text>
-                        </TouchableOpacity>
-                    </View>
+                <View className="mb-8 p-2">
+                    <Text className="text-white text-2xl font-bold mb-3">Trending Markets</Text>
 
-                    {trendingCoins.map(coin => (
-                        <CryptoCard key={coin.id} coin={coin} />
-                    ))}
-                </View>
-
-                <View className="mb-8">
-                    <Text className="text-white text-xl font-bold mb-3">News & Updates</Text>
-
-                    <TouchableOpacity className="bg-gray-800 p-4 rounded-xl mb-3">
+                    <Pressable className="bg-gray-800 p-4 rounded-xl mb-3">
                         <View className="flex-row items-center mb-2">
                             <View className="w-8 h-8 rounded-full bg-blue-500 items-center justify-center">
                                 <Text className="text-white font-bold">BTC</Text>
@@ -209,9 +208,9 @@ const HomeScreen = () => {
                         </View>
                         <Text className="text-white text-lg font-semibold mb-1">Bitcoin Surpasses $65K Once Again</Text>
                         <Text className="text-gray-400">Bitcoin has again surpassed the $65,000 mark as institutional investors continue to...</Text>
-                    </TouchableOpacity>
+                    </Pressable>
 
-                    <TouchableOpacity className="bg-gray-800 p-4 rounded-xl">
+                    <Pressable className="bg-gray-800 p-4 rounded-xl">
                         <View className="flex-row items-center mb-2">
                             <View className="w-8 h-8 rounded-full bg-gray-700 items-center justify-center">
                                 <Text className="text-white font-bold">M</Text>
@@ -220,7 +219,7 @@ const HomeScreen = () => {
                         </View>
                         <Text className="text-white text-lg font-semibold mb-1">Federal Reserve Signals No Rate Changes</Text>
                         <Text className="text-gray-400">The Federal Reserve has signaled no immediate changes to interest rates, causing crypto markets to...</Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
             </ScrollView>
         </SafeAreaView>

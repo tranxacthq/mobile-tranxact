@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TextInput, Pressable, SafeAreaView, KeyboardAvoidingView, Platform, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { router } from 'expo-router';
 import Button from '@/components/Button';
 export default function ResetPassword() {
@@ -67,9 +67,9 @@ export default function ResetPassword() {
                         <View className="mb-8">
                             <View className="flex-row justify-center">
                                 <Text className="text-gray-400">Remember Password </Text>
-                                <TouchableOpacity onPress={() => router.push('/(onboarding)/login')}>
+                                <Pressable onPress={() => router.push('/(onboarding)/login')}>
                                     <Text className="text-teal-400 font-medium">Login</Text>
-                                </TouchableOpacity>
+                                </Pressable>
                             </View>
                         </View>
                     </View>

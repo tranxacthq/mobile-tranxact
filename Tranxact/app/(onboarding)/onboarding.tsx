@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, TouchableOpacity, Dimensions, FlatList, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, Image, Pressable, Dimensions, FlatList, SafeAreaView, StatusBar } from 'react-native';
 
 interface SlideItem {
   id: string;
@@ -104,23 +104,23 @@ const OnboardingScreen = () => {
 
           {showButtons && (
             <View className="px-6">
-              <TouchableOpacity
+              <Pressable
                 className="bg-white py-4 rounded-lg mb-4"
                 onPress={() => router.push('/(onboarding)/signup')}
               >
                 <Text className="text-black text-center font-bold text-lg">
                   Get Started
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
 
-              <TouchableOpacity
+              <Pressable
                 className="py-2"
                 onPress={() => router.push('/(onboarding)/login')}
               >
                 <Text className="text-white text-center text-lg">
                   Sign In
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
             </View>
           )}
         </View>

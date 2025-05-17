@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-    View, Text, TextInput, TouchableOpacity, SafeAreaView, KeyboardAvoidingView,
+    View, Text, TextInput, Pressable, SafeAreaView, KeyboardAvoidingView,
     Platform, Image, TouchableWithoutFeedback, Keyboard
 } from 'react-native';
 import { router } from 'expo-router';
@@ -60,9 +60,9 @@ export default function ForgotPassword() {
                         <View className="mb-8">
                             <View className="flex-row justify-center">
                                 <Text className="text-gray-400">Remember your password ? </Text>
-                                <TouchableOpacity onPress={() => router.push('/(onboarding)/login')}>
+                                <Pressable onPress={() => router.push('/(onboarding)/login')}>
                                     <Text className="text-teal-400 font-medium">Login</Text>
-                                </TouchableOpacity>
+                                </Pressable>
                             </View>
                         </View>
                     </View>

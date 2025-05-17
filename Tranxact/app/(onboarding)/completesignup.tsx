@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Platform, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TextInput, Pressable, SafeAreaView, KeyboardAvoidingView, Platform, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import Button from '@/components/Button';
@@ -59,9 +59,9 @@ export default function CompleteAccountScreen() {
                 >
                     <View className="px-4 flex-1 justify-between">
                         <View>
-                            <TouchableOpacity onPress={() => router.back()} className="mt-6">
+                            <Pressable onPress={() => router.back()} className="mt-6">
                                 <Text className="text-white text-2xl">←</Text>
-                            </TouchableOpacity>
+                            </Pressable>
 
                             <View className="items-center mt-8 mb-8">
                                 <Image
@@ -118,7 +118,7 @@ export default function CompleteAccountScreen() {
                                             value={password}
                                             onChangeText={setPassword}
                                         />
-                                        <TouchableOpacity
+                                        <Pressable
                                             className="absolute right-4 top-4"
                                             onPress={() => setShowPassword(!showPassword)}
                                         >
@@ -127,7 +127,7 @@ export default function CompleteAccountScreen() {
                                                 size={24}
                                                 color="#6b7280"
                                             />
-                                        </TouchableOpacity>
+                                        </Pressable>
                                     </View>
                                 </View>
 
@@ -155,9 +155,9 @@ export default function CompleteAccountScreen() {
                             />
                             <View className="flex-row justify-center">
                                 <Text className="text-gray-400">Already have an account? </Text>
-                                <TouchableOpacity onPress={() => router.push('/(onboarding)/login')}>
+                                <Pressable onPress={() => router.push('/(onboarding)/login')}>
                                     <Text className="text-teal-400">Login</Text>
-                                </TouchableOpacity>
+                                </Pressable>
                             </View>
                         </View>
                     </View>

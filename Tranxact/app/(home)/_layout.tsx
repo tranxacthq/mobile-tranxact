@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
-import { MaterialCommunityIcons, Ionicons, AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons, AntDesign, Octicons } from '@expo/vector-icons';
 const HomeLayout = () => {
     return (
         <Tabs screenOptions={{
@@ -63,7 +63,7 @@ const HomeLayout = () => {
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <View>
-                            <Text style={{ color }}></Text>
+                            <Octicons name="graph" size={16} color={color} />
                         </View>
                     ),
                 }}

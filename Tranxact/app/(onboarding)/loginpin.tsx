@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, Platform, Alert } from 'react-native';
+import { View, Text, Pressable, SafeAreaView, StatusBar, Platform, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as LocalAuthentication from 'expo-local-authentication';
@@ -105,87 +105,87 @@ const Loginpin = () => {
 
             <View className="w-4/5">
                 <View className="flex-row justify-between mb-6">
-                    <TouchableOpacity
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('1')}
                     >
                         <Text className="text-white text-3xl">1</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Pressable>
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('2')}
                     >
                         <Text className="text-white text-3xl">2</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Pressable>
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('3')}
                     >
                         <Text className="text-white text-3xl">3</Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
 
                 <View className="flex-row justify-between mb-6">
-                    <TouchableOpacity
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('4')}
                     >
                         <Text className="text-white text-3xl">4</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Pressable>
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('5')}
                     >
                         <Text className="text-white text-3xl">5</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Pressable>
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('6')}
                     >
                         <Text className="text-white text-3xl">6</Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
 
                 <View className="flex-row justify-between mb-6">
-                    <TouchableOpacity
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('7')}
                     >
                         <Text className="text-white text-3xl">7</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Pressable>
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('8')}
                     >
                         <Text className="text-white text-3xl">8</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Pressable>
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('9')}
                     >
                         <Text className="text-white text-3xl">9</Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
 
                 <View className="flex-row justify-between">
-                    <TouchableOpacity
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={handleBiometricAuth}
                     >
                         {renderBiometricIcon()}
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Pressable>
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={() => handlePress('0')}
                     >
                         <Text className="text-white text-3xl">0</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Pressable>
+                    <Pressable
                         className="w-16 h-16 rounded-full flex justify-center items-center"
                         onPress={handleDelete}
                     >
                         <Text className="text-white text-3xl">✕</Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
             </View>
         </SafeAreaView>
