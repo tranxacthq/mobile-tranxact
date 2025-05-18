@@ -80,11 +80,8 @@ export default function Wallet() {
 
     return (
         <SafeAreaView className="flex-1 bg-black">
-            <View className="px-4 pl-5 pt-2 pb-4">
-                <Text className="text-white text-2xl">Wallet</Text>
-            </View>
             <View className="mx-4 rounded-xl p-2 mb-6">
-                <View className='flex-row items-center gap-2 mb-2'>
+                <View className='flex-row gap-2 mb-2'>
                     <Text className="text-[#6c757d] text-[16px] text-center">Current Balance</Text>
                     {
                         showBalance ? (

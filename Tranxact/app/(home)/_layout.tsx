@@ -6,7 +6,6 @@ import { MaterialCommunityIcons, AntDesign, Octicons, Ionicons } from '@expo/vec
 const HomeLayout = () => {
     return (
         <Tabs screenOptions={{
-            // headerShown: false,
             tabBarStyle: {
                 position: 'absolute',
                 bottom: 0,
@@ -22,7 +21,7 @@ const HomeLayout = () => {
                 shadowOpacity: 0,
                 shadowRadius: 0,
             },
-            tabBarActiveTintColor: '#212125',
+            tabBarActiveTintColor: '#3CC8C8',
             tabBarInactiveTintColor: '#fff',
             tabBarItemStyle: {
                 borderRadius: 20,
@@ -32,7 +31,7 @@ const HomeLayout = () => {
             <Tabs.Screen
                 name='index'
                 options={{
-                    title: '',
+                    title: 'Home',
                     tabBarIcon: ({ color }) => (
                         <View>
                             <MaterialCommunityIcons name='home' color={color} size={20} />
@@ -47,7 +46,7 @@ const HomeLayout = () => {
                     ),
                     headerLeft: () => (
                         <View className="">
-                            <View className='flex-row gap-1 pl-2'>
+                            <View className='flex-row gap-1 ml-4'>
                                 <Text className="text-white text-2xl font-bold">Hello,</Text>
                                 <Text className="text-white text-2xl font-bold">Alex Johnson</Text>
                             </View>
@@ -60,18 +59,32 @@ const HomeLayout = () => {
                     headerTitleStyle: {
                         fontWeight: 'bold',
                     },
+                    headerTitle: ''
                 }}
             />
             <Tabs.Screen
                 name='wallet'
                 options={{
                     title: 'Wallet',
-                    headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <View>
                             <MaterialCommunityIcons name='wallet' color={color} size={20} />
                         </View>
                     ),
+
+                    headerLeft: () => (
+                        <View className="ml-3">
+                            <Text className="text-white text-2xl font-bold">Wallet</Text>
+                        </View>
+                    ),
+                    headerStyle: {
+                        backgroundColor: 'black'
+                    },
+                    headerTintColor: '#ffffff',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                    headerTitle: ''
                 }}
             />
             <Tabs.Screen
