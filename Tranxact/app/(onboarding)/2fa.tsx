@@ -16,7 +16,7 @@ const Setup2FA = () => {
             <View className="justify-center items-center p-8 gap-4">
                 <Text className="text-2xl font-bold mb-4 text-white">Set Up Two-Factor Authentication</Text>
                 <Text className="text-[12px] leading-6 mb-2 text-white ">
-                    Open the downoloaded 2FA app eg. Google Authentication app or Microsoft Authentication app,
+                    Open the downloaded 2FA app eg. Google Authentication app or Microsoft Authentication app,
                     Using the manual entry option copy and paste the set-up key below into the app to activate Two Factor Authentication for your account
                 </Text>
 
