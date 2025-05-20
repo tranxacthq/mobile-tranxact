@@ -28,8 +28,8 @@ const Button: React.FC<ButtonProps> = ({
     let textClass = "font-bold ";
 
     if (variant === 'primary') {
-        buttonClass += " bg-white";
-        textClass += " text-black";
+        buttonClass += " bg-[#1A535C]";
+        textClass += " text-white";
     } else if (variant === 'secondary') {
         buttonClass += " bg-transparent";
         textClass += " text-white";

@@ -36,7 +36,6 @@ const WalletLayout = () => {
                         color: '#fff'
                     },
                     headerShadowVisible: false,
-                    presentation: 'modal',
                 }}
             />
             <Stack.Screen
@@ -53,7 +52,6 @@ const WalletLayout = () => {
                         color: '#fff'
                     },
                     headerShadowVisible: false,
-                    presentation: 'modal',
                 }}
             />
         </Stack>

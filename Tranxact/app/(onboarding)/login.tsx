@@ -87,10 +87,10 @@ export default function Login() {
                 />
               </View>
               <Text className="text-white text-3xl font-bold mb-2 font-poppins">Welcome Back</Text>
-              <Text className="text-white text-lg">Sign in to your tranxact account</Text>
+              <Text className="text-white text-lg font-poppins">Sign in to your tranxact account</Text>
               <View className="w-full space-y-4 mt-4 gap-4">
                 <View>
-                  <Text className="text-gray-400 text-base mb-2">Email Address</Text>
+                  <Text className="text-gray-400 text-base mb-2 font-poppins">Email Address</Text>
                   <TextInput
                     className="w-full bg-[#101115] text-white px-4 h-[50px] py-0 rounded-lg"
                     placeholderTextColor="#6b7280"
@@ -102,7 +102,7 @@ export default function Login() {
                   />
                 </View>
                 <View>
-                  <Text className="text-gray-400 text-base mb-2">Password</Text>
+                  <Text className="text-gray-400 text-base mb-2 font-poppins">Password</Text>
                   <TextInput
                     className="w-full bg-[#101115] text-white px-4 h-[50px] py-0 rounded-lg"
                     placeholderTextColor="#6b7280"
@@ -125,8 +125,8 @@ export default function Login() {
                 title="Continue"
                 variant="primary"
                 onPress={handleContinue}
-                className="mb-10 mt-10 bg-white rounded-xl py-4 items-center w-[100%] "
-                textClassName='text-[16px] font-light text-black font-poppins'
+                className="mb-10 mt-10 rounded-xl py-4 items-center w-[100%] "
+                textClassName='text-[18px] font-light font-poppins'
               />
 
             </View>

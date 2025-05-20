@@ -11,7 +11,7 @@ SplashScreen.preventAutoHideAsync()
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     'Neurial Grotesk-regular': require('../assets/fonts/Neurial Grotesk-regular.ttf'),
-    'Neurial Grotesk-redium': require('../assets/fonts/Neurial Grotesk-medium.ttf'),
+    'Neurial Grotesk-medium': require('../assets/fonts/Neurial Grotesk-medium.ttf'),
     'Neurial Grotesk-bold': require('../assets/fonts/Neurial Grotesk-bold.ttf'),
 
     'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
