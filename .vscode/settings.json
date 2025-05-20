@@ -1,4 +1,11 @@
 {
   "postman.settings.dotenv-detection-notification-visibility": false,
-  "cSpell.words": ["Okwudili", "Pressable", "Solana"]
+  "cSpell.words": [
+    "myapp",
+    "Okwudili",
+    "Pressable",
+    "Solana",
+    "Tranxact",
+    "youngmentor"
+  ]
 }
