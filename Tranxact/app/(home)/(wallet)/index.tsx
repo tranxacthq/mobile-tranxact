@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { View, Text, ScrollView, Pressable, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// Mock data for transactions
 const transactions: Transaction[] = [
     {
         id: "1",
@@ -36,6 +35,12 @@ const transactions: Transaction[] = [
     }
 ];
 
+type BalanceSectionProps = {
+    balance: number;
+    showBalance: boolean;
+    toggleBalanceVisibility: () => void;
+};
+
 type Transaction = {
     id: string;
     type: "received" | "sent";
@@ -48,7 +53,7 @@ const TransactionItem = ({ transaction }: { transaction: Transaction }) => {
     const isReceived = transaction.type === "received";
 
     return (
-        <View className="p-3  rounded-lg bg-[#212125] mb-4">
+        <View className="p-3 rounded-lg bg-[#212125] mb-4">
             <View className="flex-row items-center justify-between">
                 <View className="flex-row items-center">
                     <View className={`w-10 h-10 rounded-full items-center justify-center ${isReceived ? "bg-[#00A47833]" : "bg-[#E4484833]"}`}>
@@ -75,42 +80,65 @@ const TransactionItem = ({ transaction }: { transaction: Transaction }) => {
     );
 };
 
+
+const BalanceSection = ({
+    balance,
+    showBalance,
+    toggleBalanceVisibility
+}: BalanceSectionProps) => {
+    return (
+        <View className="mx-4 rounded-xl p-2 mb-6">
+            <View className="flex-row gap-2 mb-2">
+                <Text className="text-[#6c757d] text-[16px] text-center">Current Balance</Text>
+                <Pressable onPress={toggleBalanceVisibility}>
+                    <MaterialCommunityIcons
+                        name={showBalance ? "eye-off-outline" : "eye-outline"}
+                        size={22}
+                        color="gray"
+                    />
+                </Pressable>
+            </View>
+
+            <Text className="text-[#3CC8C8] text-5xl font-bold mt-1">
+                {showBalance ? `$${balance.toFixed(2)}` : "••••••"}
+            </Text>
+
+            <View className="flex-row mt-6 justify-between">
+                <Pressable
+                    className="bg-white py-3 px-6 rounded-lg flex-1 mr-3 items-center"
+                    onPress={() => router.push("/(home)/(wallet)/withdraw")}
+                >
+                    <Text className="text-black font-medium text-lg">Withdraw</Text>
+                </Pressable>
+
+                <Pressable
+                    className="border border-gray-100 py-3 px-6 rounded-lg flex-1 ml-3 items-center"
+                    onPress={() => router.push("/(home)/(wallet)/deposit")}
+                >
+                    <Text className="text-white font-medium text-lg">Deposit</Text>
+                </Pressable>
+            </View>
+        </View>
+    );
+};
 export default function Wallet() {
     const [showBalance, setShowBalance] = useState(true);
+    const currentBalance = 3582.45;
+
+    const toggleBalanceVisibility = () => {
+        setShowBalance(prev => !prev);
+    };
 
     return (
         <SafeAreaView className="flex-1 bg-black">
-            <View className="mx-4 rounded-xl p-2 mb-6">
-                <View className='flex-row gap-2 mb-2'>
-                    <Text className="text-[#6c757d] text-[16px] text-center">Current Balance</Text>
-                    {
-                        showBalance ? (
-                            <Pressable onPress={() => setShowBalance(false)}>
-                                <MaterialCommunityIcons name="eye-off-outline" size={22} color="gray" />
-                            </Pressable>
-                        ) : (
-                            <Pressable onPress={() => setShowBalance(true)}>
-                                <MaterialCommunityIcons name="eye-outline" size={22} color="gray" />
-                            </Pressable>
-                        )
-                    }
-                </View>
-                <Text className="text-[#3CC8C8] text-5xl font-bold mt-1">$3,582.45</Text>
-
-                <View className="flex-row mt-6 justify-between">
-                    <Pressable
-                        className="bg-white py-3 px-6 rounded-lg flex-1 mr-3 items-center"
-                    >
-                        <Text className="text-black font-medium text-lg ">Withdraw</Text>
-                    </Pressable>
-
-                    <Pressable
-                        className="border border-gray-100 py-3 px-6 rounded-lg flex-1 ml-3 items-center"
-                    >
-                        <Text className="text-white font-medium text-lg">Deposit</Text>
-                    </Pressable>
-                </View>
+            <View className=" pl-6 px-4 pt-2 pb-4">
+                <Text className="text-white text-2xl">Wallet</Text>
             </View>
+            <BalanceSection
+                balance={currentBalance}
+                showBalance={showBalance}
+                toggleBalanceVisibility={toggleBalanceVisibility}
+            />
 
             <View className="flex-1 px-4">
                 <View className="flex-row justify-between items-center mb-3 p-2">
@@ -124,7 +152,6 @@ export default function Wallet() {
                     {transactions.map(transaction => (
                         <TransactionItem key={transaction.id} transaction={transaction} />
                     ))}
-
                     <View className="h-6" />
                 </ScrollView>
             </View>

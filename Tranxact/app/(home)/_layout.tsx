@@ -12,7 +12,7 @@ const HomeLayout = () => {
                 left: 0,
                 right: 0,
                 elevation: 0,
-                backgroundColor: 'rgba(31, 31, 31, 0.98)',
+                backgroundColor: 'rgba(31, 31, 31, 0.96)',
                 borderTopWidth: 0,
                 shadowOffset: {
                     width: 0,
@@ -63,7 +63,7 @@ const HomeLayout = () => {
                 }}
             />
             <Tabs.Screen
-                name='wallet'
+                name='(wallet)'
                 options={{
                     title: 'Wallet',
                     tabBarIcon: ({ color }) => (
@@ -84,7 +84,8 @@ const HomeLayout = () => {
                     headerTitleStyle: {
                         fontWeight: 'bold',
                     },
-                    headerTitle: ''
+                    headerTitle: '',
+                    headerShown: false
                 }}
             />
             <Tabs.Screen

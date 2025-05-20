@@ -148,7 +148,7 @@ const HomeScreen = () => {
                         </Pressable>
                     ) : (
                         <Pressable onPress={() => setShowBalance(true)}>
-                            <Text className="text-white text-4xl font-bold text-center">*****</Text>
+                            <Text className="text-white text-4xl font-bold text-center">••••••</Text>
                         </Pressable>
                     )}
                     <Text className="text-green-500 mb-4 mt-2 text-center">
